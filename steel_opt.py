@@ -93,10 +93,15 @@ def packAndShow(aList, maxValue):
 
 
 if __name__ == "__main__":
+    print("-" * 80)
+    print("Input starting materials")
     stockLength, quantity = getStockLength()
     totalStock = stockLength * quantity
     print(f"Stock Length is: {stockLength}")
     print(f"Total Stock Length is: {totalStock}")
+    print("-" * 80)
+    print("Input cut list")
+
     cutList = []
     answer = "y"
     while answer == "y":
@@ -104,6 +109,8 @@ if __name__ == "__main__":
         print("Current Length is: " + str(sum(cutList)) + " mm")
 
         answer = input("do you have more to add? y/n?: ")
+
+    print("-" * 80)
 
     if sum(cutList) > totalStock:
         print("Not enough stock.")
