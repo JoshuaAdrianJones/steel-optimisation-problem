@@ -20,11 +20,7 @@ class Bin(object):
 
     def __str__(self):
         """Printable representation"""
-        return "Bin(capacity=%d, currently_used=%d, cuts=%s)" % (
-            self.capacity,
-            self.currently_used,
-            str(self.items),
-        )
+        return f"Bin(capacity={self.capacity}, currently_used={self.currently_used}, cuts={self.items})"
 
 
 class StockInfo:
