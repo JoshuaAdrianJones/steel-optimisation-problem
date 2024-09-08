@@ -67,7 +67,6 @@ def pack(values, bin_size):
     # create first bin
     bins.append(Bin(capacity=bin_size))
 
-    # iterate over cuts and place in bins
     for cut in cuts:
         current_bin = bins[-1]
         # Try to fit item into a bin
@@ -91,7 +90,6 @@ def new_section(message):
 
 
 if __name__ == "__main__":
-    # get input for bin sizes and total number of bins
     new_section("Input starting materials")
 
     stock_info = StockInfo()
