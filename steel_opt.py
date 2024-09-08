@@ -3,21 +3,6 @@ An optimisation program to determine the number of steel stock
 lengths to use for a steel structure cut from stock
 """
 
-from typing import Tuple
-
-
-def getStockLength() -> Tuple[int, int]:
-    """
-    Get the stock length and quantity from user input.
-
-    Returns:
-        Tuple[int, int]: A tuple of the stock length and quantity.
-    """
-    stock_length = int(input("Please enter your stock length in mm: "))
-    quantity = int(input("How many do you have? "))
-
-    return stock_length, quantity
-
 
 def addToCutList():
     partSize = input("Please enter your cut length in mm: ")
@@ -95,10 +80,18 @@ def packAndShow(aList, maxValue):
 if __name__ == "__main__":
     print("-" * 80)
     print("Input starting materials")
-    stockLength, quantity = getStockLength()
-    totalStock = stockLength * quantity
-    print(f"Stock Length is: {stockLength}")
+    stock_length = int(
+        input(
+            "Please enter your stock length in mm:  (for example you might purchase 1m tubes in which case enter 1000): "
+        )
+    )
+    quantity = int(input("How many do you have? "))
+
+    totalStock = stock_length * quantity
+
+    print(f"Stock Length is: {stock_length}")
     print(f"Total Stock Length is: {totalStock}")
+    
     print("-" * 80)
     print("Input cut list")
 
@@ -120,4 +113,4 @@ if __name__ == "__main__":
 
     cutList.sort()
     print(cutList)
-    packAndShow(cutList, stockLength)
+    packAndShow(cutList, stock_length)
