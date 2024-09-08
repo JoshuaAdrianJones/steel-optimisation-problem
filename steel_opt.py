@@ -4,26 +4,26 @@ lengths to use for a steel structure cut from stock
 """
 
 def getStockLength():
-    stockLength = raw_input("Please enter your stock length in mm: ")
+    stockLength = input("Please enter your stock length in mm: ")
     stockLength = int(stockLength)
-    quantity = raw_input("How many do you have? ")
+    quantity = input("How many do you have? ")
     quantity = int(quantity)
 
     return stockLength,quantity;
 
 stockLength,quantity = getStockLength()
 totalStock = stockLength*quantity
-print "Stock Length is: "+str(stockLength)
-print "Total Stock Length is: "+str(totalStock)
+print( "Stock Length is: "+str(stockLength))
+print( "Total Stock Length is: "+str(totalStock))
 cutList = []
 
 def addToCutList():
 
-    partSize = raw_input("Please enter your cut length in mm: ")
+    partSize = input("Please enter your cut length in mm: ")
     partSize = int(partSize)
-    partQuant = raw_input("How many do you have? ")
+    partQuant = input("How many do you have? ")
     partQuant = int(partQuant)
-    print "Total Stock Length available is: "+str(totalStock)
+    print("Total Stock Length available is: "+str(totalStock))
     i=0
     while (i<partQuant):
         cutList.append(partSize)
@@ -32,19 +32,19 @@ def addToCutList():
 answer="y"
 while (answer =="y"):
     cutList = addToCutList()
-    print "Current Length is: "+ str(sum(cutList))+" mm"
+    print( "Current Length is: "+ str(sum(cutList))+" mm")
 
-    answer = raw_input("do you have more to add? y/n?: ")
+    answer = input("do you have more to add? y/n?: ")
 
 
 
 if (sum(cutList)>totalStock):
-    print "Not enough stock."
+    print( "Not enough stock.")
     quit()
-else: print "There is potentially enough stock, optimisation possible"
+else: print( "There is potentially enough stock, optimisation possible")
 
 cutList.sort()
-print cutList
+print(cutList)
 
 
 """ Partition a list into sublists whose sums don't exceed a maximum
@@ -95,13 +95,13 @@ if __name__ == '__main__':
 
     def packAndShow(aList, maxValue):
         """ Pack a list into bins and show the result """
-        print 'List with sum', sum(aList), 'requires at least', (sum(aList)+maxValue-1)/maxValue, 'bins'
+        print( 'List with sum', sum(aList), 'requires at least', (sum(aList)+maxValue-1)/maxValue, 'bins')
 
         bins = pack(aList, maxValue)
 
-        print 'Solution using', len(bins), 'bins:'
+        print('Solution using', len(bins), 'bins:')
         for bin in bins:
-            print bin
+            print(bin)
 
         print
 
