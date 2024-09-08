@@ -4,7 +4,7 @@ lengths to use for a steel structure cut from stock
 """
 
 
-def addToCutList():
+def add_to_cut_list():
     partSize = input("Please enter your cut length in mm: ")
     partSize = int(partSize)
     partQuant = input("How many do you have? ")
@@ -12,9 +12,9 @@ def addToCutList():
     print("Total Stock Length available is: " + str(totalStock))
     i = 0
     while i < partQuant:
-        cutList.append(partSize)
+        cut_list.append(partSize)
         i += 1
-    return cutList
+    return cut_list
 
 
 """ Partition a list into sublists whose sums don't exceed a maximum
@@ -61,7 +61,7 @@ def pack(values, maxValue):
     return bins
 
 
-def packAndShow(aList, maxValue):
+def pack_and_show(aList, maxValue):
     """Pack a list into bins and show the result"""
     print(
         "List with sum",
@@ -91,26 +91,26 @@ if __name__ == "__main__":
 
     print(f"Stock Length is: {stock_length}")
     print(f"Total Stock Length is: {totalStock}")
-    
+
     print("-" * 80)
     print("Input cut list")
 
-    cutList = []
+    cut_list = []
     answer = "y"
     while answer == "y":
-        cutList = addToCutList()
-        print("Current Length is: " + str(sum(cutList)) + " mm")
+        cut_list = add_to_cut_list()
+        print("Current Length is: " + str(sum(cut_list)) + " mm")
 
         answer = input("do you have more to add? y/n?: ")
 
     print("-" * 80)
 
-    if sum(cutList) > totalStock:
+    if sum(cut_list) > totalStock:
         print("Not enough stock.")
         quit()
     else:
         print("There is potentially enough stock, optimisation possible")
 
-    cutList.sort()
-    print(cutList)
-    packAndShow(cutList, stock_length)
+    cut_list.sort()
+    print(cut_list)
+    pack_and_show(cut_list, stock_length)
