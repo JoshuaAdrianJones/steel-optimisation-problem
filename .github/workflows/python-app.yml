@@ -10,12 +10,13 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.12
       uses: actions/setup-python@v3
+      id: setup-python
       with:
         python-version: "3.12"
     - name: Install Poetry
@@ -36,6 +37,39 @@ jobs:
     - name: Lint with Ruff
       run: |
         poetry run ruff check .
-    - name: Test with pytest
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v3
+      id: setup-python
+      with:
+        python-version: "3.12"
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: 1.5.1
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-root
+    - name: Prepare reports directory
+      run: mkdir -p reports
+    - name: Test with pytest and coverage
       run: |
-        poetry run pytest
+        poetry run pytest --junitxml=reports/junit.xml --cov=steel_opt --cov-report=xml:reports/coverage.xml --cov-report=term
+    - name: Upload test reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-reports
+        path: reports
