@@ -6,7 +6,7 @@ from collections import Counter
 import random
 import pytest
 
-from steel_opt import pack, StockInfo, Bin
+from steel_opt import pack, StockInfo
 
 
 def items_multiset_from_bins(bins):
