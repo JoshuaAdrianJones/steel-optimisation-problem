@@ -68,6 +68,8 @@ jobs:
     - name: Ensure pytest-cov is available
       run: |
         poetry run pip install pytest-cov
+    - name: Add src to PYTHONPATH
+      run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src" >> $GITHUB_ENV
     - name: Test with pytest and coverage
       run: |
         poetry run pytest --junitxml=reports/junit.xml --cov=steel_opt --cov-report=xml:reports/coverage.xml --cov-report=term
