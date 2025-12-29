@@ -4,6 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Joshua Jones <joshua.ar.jones@gmail.com>"]
 readme = "README.md"
+packages = [
+	{ include = "steel_optimisation_problem", from = "src" }
+]
 [tool.poetry.dependencies]
 python = "^3.12"
 pytest = "^8.3.2"
