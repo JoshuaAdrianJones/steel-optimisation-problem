@@ -1,20 +1,48 @@
-# steel_optimisation-problem
 
-Solving the Bin Optimisation problem.
-Say you have a number of steel tubes that need to be cut in the most efficient way possible to make up an arbitrary amount of cut-to-length
-pieces, if you know the cut lengths, how do you know how many tubes of a fixed length to buy to then cut up?
+# steel-optimisation-problem
 
-Essentially what you have is a number of 'containers' problem where you try to fit the most volume (length in our case) into the least amount of 
-'containers' of a fixed size.
+[![Python Versions](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-For example say you have to cut 3x500mm pipes and 2x600mm pipes but can only buy pipes in lengths of 2000mm. 
+One-sentence: library for solving a 1D bin-packing problem focused on optimising how many fixed-length steel tubes to buy and how to cut them to satisfy a set of required lengths.
 
-You can fill up 1500mm of one pipe with your 3x500mm pipes but then you have a wasted 500mm pipe.
+Why this exists
+----------------
+When you need to cut parts from fixed-length stock (steel tubes, bars, or similar), it’s useful to minimise wasted material and the number of stock pieces purchased. This project provides simple algorithms and helpers to explore packing strategies for that problem.
 
-This is the kind of optimization I was trying to do for a spaceframe chassis for a formula student car see: https://goo.gl/uWqBZN
+Installation
+------------
+Install from source for development:
 
-Turns out this is a hard problem to solve.
+```bash
+pip install -e .
+```
 
-Wiki link: https://en.wikipedia.org/wiki/Bin_packing_problem
+Quick start
+-----------
+```python
+from steel_optimisation_problem import pack, StockInfo
 
-Some other resource: https://d-nb.info/993873529/34
+# stock length 2000mm, want 3x500mm and 2x600mm
+stock = StockInfo(length=2000)
+items = [500,500,500,600,600]
+result = pack(items, stock)
+print(result)
+```
+
+Running tests
+-------------
+Run the test suite locally (ensure `src` is on `PYTHONPATH` or install the package):
+
+```bash
+# from repository root
+PYTHONPATH=src pytest -q
+```
+
+Contributing
+------------
+See CONTRIBUTING.md for how to set up a development environment, run tests, and submit PRs.
+
+License
+-------
+MIT
