@@ -65,6 +65,9 @@ jobs:
       run: poetry install --no-interaction --no-root
     - name: Prepare reports directory
       run: mkdir -p reports
+    - name: Ensure pytest-cov is available
+      run: |
+        poetry run pip install pytest-cov
     - name: Test with pytest and coverage
       run: |
         poetry run pytest --junitxml=reports/junit.xml --cov=steel_opt --cov-report=xml:reports/coverage.xml --cov-report=term
