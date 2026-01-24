@@ -20,10 +20,24 @@ Unreleased
 - `pack()` algorithm improved to use true First Fit (checks all bins, not just last)
 - `Bin` class now supports float values for kerf precision
 - Main CLI now prompts for kerf width
+- **Switched from Poetry to UV** for faster, modern dependency management
+- **Modernized type hints**: Using Python 3.12+ syntax (`list[T]`, `X | Y`)
+- **Enhanced CI workflow**:
+  - Multi-Python version testing (3.12, 3.13)
+  - Ruff format checking in addition to linting
+  - Package build verification with twine
+  - 80% minimum coverage requirement
 
 ### Fixed
 - Pack algorithm now correctly tries all existing bins (First Fit Decreasing)
   rather than only checking the most recent bin
+
+### Developer Experience
+- **Ruff configuration**: Comprehensive linting rules (pycodestyle, pyflakes, isort,
+  flake8-bugbear, pylint, and more)
+- **Ruff formatting**: Consistent code style with `ruff format`
+- **pytest-cov**: Coverage reporting with branch coverage
+- **hatchling**: Modern PEP 517 build backend
 
 ---
 

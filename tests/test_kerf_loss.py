@@ -1,9 +1,10 @@
 """Tests for kerf loss functionality in steel optimization."""
 
-import pytest
 from collections import Counter
 
-from steel_optimisation_problem import pack, StockInfo, Bin, get_packing_stats
+import pytest
+
+from steel_optimisation_problem import Bin, StockInfo, get_packing_stats, pack
 
 
 class TestBinWithKerf:
@@ -220,10 +221,17 @@ class TestRealWorldScenarios:
 
         # Order: need various lengths
         cuts = [
-            500, 500, 500, 500,  # 4x 500mm
-            750, 750,            # 2x 750mm
-            1200, 1200,          # 2x 1200mm
-            300, 300, 300,       # 3x 300mm
+            500,
+            500,
+            500,
+            500,  # 4x 500mm
+            750,
+            750,  # 2x 750mm
+            1200,
+            1200,  # 2x 1200mm
+            300,
+            300,
+            300,  # 3x 300mm
         ]
 
         bins = pack(cuts, bin_size=stock_length, kerf_width=kerf)

@@ -1,3 +1,3 @@
-from .steel_opt import pack, StockInfo, Bin, get_packing_stats
+from .steel_opt import Bin, StockInfo, get_packing_stats, pack
 
-__all__ = ["pack", "StockInfo", "Bin", "get_packing_stats"]
+__all__ = ["Bin", "StockInfo", "get_packing_stats", "pack"]

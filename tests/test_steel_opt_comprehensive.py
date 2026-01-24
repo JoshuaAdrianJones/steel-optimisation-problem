@@ -1,9 +1,11 @@
 """Comprehensive pytest suite for steel_opt (updated imports)."""
-from collections import Counter
+
 import random
+from collections import Counter
+
 import pytest
 
-from steel_optimisation_problem import pack, StockInfo
+from steel_optimisation_problem import StockInfo, pack
 
 
 def items_multiset_from_bins(bins):
