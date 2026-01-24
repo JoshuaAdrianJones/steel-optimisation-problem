@@ -29,8 +29,10 @@ def test_pack_preserves_items_and_sum():
     "values,bin_size,expected_bins",
     [
         ([10, 20, 20], 60, 1),
-        ([50, 40, 30, 20, 10], 60, 4),
-        ([20, 20, 20, 20], 40, 4),
+        # True First Fit: [50,40,30,20,10] -> Bin1: 50+10, Bin2: 40+20, Bin3: 30
+        ([50, 40, 30, 20, 10], 60, 3),
+        # True First Fit allows exact fits: [20,20,20,20] -> Bin1: 20+20, Bin2: 20+20
+        ([20, 20, 20, 20], 40, 2),
     ],
 )
 def test_pack_parametrized_smoke(values, bin_size, expected_bins):
