@@ -2,7 +2,8 @@
 
 import unittest
 from unittest.mock import patch
-from steel_optimisation_problem import StockInfo, Bin, pack
+
+from steel_optimisation_problem import Bin, StockInfo, pack
 
 
 class TestBinInit(unittest.TestCase):

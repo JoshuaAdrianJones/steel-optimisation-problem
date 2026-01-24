@@ -4,10 +4,8 @@ This file was moved into a package so the project follows a modern
 `src/` layout. The original implementation is preserved.
 """
 
-from typing import List, Union
-
 # Type alias for numeric values (int or float for kerf precision)
-Numeric = Union[int, float]
+Numeric = int | float
 
 
 class Bin:
@@ -30,7 +28,7 @@ class Bin:
             raise ValueError("Kerf width cannot be negative")
         self.capacity = capacity
         self.kerf_width = kerf_width
-        self.items: List[Numeric] = []
+        self.items: list[Numeric] = []
         self.currently_used: Numeric = 0
         self.kerf_loss: Numeric = 0
         self.total_consumed: Numeric = 0
@@ -90,8 +88,8 @@ class StockInfo:
 
     def __init__(
         self,
-        stock_length: Numeric = None,
-        number_of_stock: int = None,
+        stock_length: Numeric | None = None,
+        number_of_stock: int | None = None,
         kerf_width: Numeric = 0,
     ) -> None:
         if stock_length is None:
@@ -119,7 +117,7 @@ class StockInfo:
             if kerf_width > 0:
                 print(f"Kerf Width: {self.kerf_width}mm")
 
-    def check(self, cut_list: List[Numeric]) -> None:
+    def check(self, cut_list: list[Numeric]) -> None:
         """Validate that total cuts don't exceed available stock."""
         if sum(cut_list) > self.total_length:
             print("Not enough stock.")
@@ -135,8 +133,8 @@ class StockInfo:
 
 
 def pack(
-    values: List[Numeric], bin_size: Numeric, kerf_width: Numeric = 0
-) -> List[Bin]:
+    values: list[Numeric], bin_size: Numeric, kerf_width: Numeric = 0
+) -> list[Bin]:
     """Pack values into bins using First Fit Decreasing algorithm.
 
     This algorithm sorts items by size (largest first) and places each item
@@ -175,7 +173,7 @@ def pack(
     if max(values) > bin_size:
         raise ValueError("bin_size too small")
 
-    bins: List[Bin] = []
+    bins: list[Bin] = []
     cuts = sorted(values, reverse=True)
     # create first bin
     bins.append(Bin(capacity=bin_size, kerf_width=kerf_width))
@@ -198,7 +196,7 @@ def pack(
     return bins
 
 
-def get_packing_stats(bins: List[Bin]) -> dict:
+def get_packing_stats(bins: list[Bin]) -> dict:
     """Calculate statistics for a packing solution.
 
     Args:
@@ -254,9 +252,7 @@ if __name__ == "__main__":
     print_section("Input starting materials")
 
     stock_length = int(
-        input(
-            "Please enter your stock length in mm (e.g., 6000 for 6m bar): "
-        )
+        input("Please enter your stock length in mm (e.g., 6000 for 6m bar): ")
     )
     number_of_stock = int(input("How many stock pieces do you have? "))
 
@@ -274,7 +270,7 @@ if __name__ == "__main__":
 
     print_section("Input cut list")
 
-    cut_lengths: List[Numeric] = []
+    cut_lengths: list[Numeric] = []
     answer = "y"
     while answer == "y":
         length = int(input("Please enter your cut length in mm: "))
