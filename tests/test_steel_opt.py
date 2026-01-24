@@ -66,9 +66,11 @@ class TestPackFunction(unittest.TestCase):
         values = [10, 20, 30, 40, 50]
         bin_size = 60
         bins = pack(values, bin_size)
-        self.assertEqual(len(bins), 4)
-        self.assertEqual(bins[0].currently_used, 50)
-        self.assertEqual(bins[1].currently_used, 40)
+        # True First Fit Decreasing: sorted [50,40,30,20,10]
+        # Bin1: 50+10=60, Bin2: 40+20=60, Bin3: 30 -> 3 bins total
+        self.assertEqual(len(bins), 3)
+        self.assertEqual(bins[0].currently_used, 60)  # 50+10
+        self.assertEqual(bins[1].currently_used, 60)  # 40+20
 
     def test_values_exceed_bin_size(self):
         values = [10, 20, 30, 100]
