@@ -213,6 +213,7 @@ def get_packing_stats(bins: list[Bin]) -> dict:
             - total_consumed: Cut lengths + kerf loss
             - total_waste: Unused material (offcuts)
             - efficiency: Percentage of material used for cuts
+            - offcuts: List of offcut lengths from each bin
     """
     if not bins:
         return {
@@ -223,6 +224,7 @@ def get_packing_stats(bins: list[Bin]) -> dict:
             "total_consumed": 0,
             "total_waste": 0,
             "efficiency": 0.0,
+            "offcuts": [],
         }
 
     total_capacity = sum(b.capacity for b in bins)
@@ -230,6 +232,7 @@ def get_packing_stats(bins: list[Bin]) -> dict:
     total_kerf_loss = sum(b.kerf_loss for b in bins)
     total_consumed = sum(b.total_consumed for b in bins)
     total_waste = sum(b.waste for b in bins)
+    offcuts = [b.offcut for b in bins]
 
     # Efficiency is the ratio of useful cut material to total material used
     efficiency = (total_cut_length / total_capacity * 100) if total_capacity > 0 else 0
@@ -242,4 +245,5 @@ def get_packing_stats(bins: list[Bin]) -> dict:
         "total_consumed": total_consumed,
         "total_waste": total_waste,
         "efficiency": round(efficiency, 2),
+        "offcuts": offcuts,
     }
