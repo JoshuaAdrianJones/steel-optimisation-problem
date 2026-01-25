@@ -247,3 +247,25 @@ def get_packing_stats(bins: list[Bin]) -> dict:
         "efficiency": round(efficiency, 2),
         "offcuts": offcuts,
     }
+
+
+def get_usable_offcuts(bins: list[Bin], min_length: Numeric = 0) -> list[Numeric]:
+    """Get offcuts that meet a minimum length threshold for potential reuse.
+
+    Filters offcuts from a packing solution to identify pieces that are
+    long enough to be saved and reused for future cuts.
+
+    Args:
+        bins: List of Bin objects from pack().
+        min_length: Minimum offcut length to consider usable. Default 0.
+            Common values: 100-300mm for small parts, 500+ for larger reuse.
+
+    Returns:
+        List of offcut lengths >= min_length, in the same order as bins.
+
+    Example:
+        >>> bins = pack([400, 400, 400], bin_size=1000)
+        >>> get_usable_offcuts(bins, min_length=300)
+        [600]  # Only the 600mm offcut, not the 200mm one
+    """
+    return [b.offcut for b in bins if b.offcut >= min_length]
