@@ -12,8 +12,9 @@ Unreleased
   - `Bin.can_fit()` method checks if item fits accounting for kerf
 - **`get_packing_stats()` function**: Calculate statistics for packing solutions
   - Returns efficiency percentage, total kerf loss, waste, and more
-- **Programmatic `StockInfo` initialization**: No longer requires interactive input
-  - `StockInfo(stock_length=6000, number_of_stock=10, kerf_width=3)`
+- **CLI module** (`cli.py`): Separated interactive CLI from library code
+  - `steel-opt` command available after install
+  - `python -m steel_optimisation_problem` also works
 - Comprehensive test suite for kerf loss scenarios (`tests/test_kerf_loss.py`)
 
 ### Changed
@@ -27,10 +28,19 @@ Unreleased
   - Ruff format checking in addition to linting
   - Package build verification with twine
   - 80% minimum coverage requirement
+- **`StockInfo` is now a pure data class** (no side effects):
+  - All parameters are required (no interactive input)
+  - Added validation for `stock_length`, `number_of_stock`, and `kerf_width`
+- **`StockInfo.check()` raises `ValueError`** instead of `SystemExit`
 
 ### Fixed
 - Pack algorithm now correctly tries all existing bins (First Fit Decreasing)
   rather than only checking the most recent bin
+
+### Breaking Changes
+- `StockInfo()` no longer accepts interactive input; all parameters required
+- `StockInfo.check()` raises `ValueError` instead of `SystemExit`
+- Library code (`steel_opt.py`) no longer contains any `print()` or `input()` calls
 
 ### Developer Experience
 - **Ruff configuration**: Comprehensive linting rules (pycodestyle, pyflakes, isort,
