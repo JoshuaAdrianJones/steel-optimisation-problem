@@ -50,6 +50,10 @@ filterwarnings = ["ignore::DeprecationWarning"]
 [tool.coverage.run]
 source = ["src/steel_optimisation_problem"]
 branch = true
+omit = [
+    "src/steel_optimisation_problem/cli.py",
+    "src/steel_optimisation_problem/__main__.py",
+]
 
 [tool.coverage.report]
 exclude_lines = [
