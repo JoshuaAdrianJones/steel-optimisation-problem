@@ -103,10 +103,17 @@ class StockInfo:
         self.total_length = self.stock_length * self.number_of_stock
 
     def check(self, cut_list: list[Numeric]) -> None:
-        """Validate that total cuts don't exceed available stock."""
-        if sum(cut_list) > self.total_length:
-            print("Not enough stock.")
-            raise SystemExit("Insufficient stock for requested cuts")
+        """Validate that total cuts don't exceed available stock.
+
+        Raises:
+            ValueError: If total cut length exceeds available stock.
+        """
+        total_requested = sum(cut_list)
+        if total_requested > self.total_length:
+            raise ValueError(
+                f"Insufficient stock: requested {total_requested}mm "
+                f"but only {self.total_length}mm available"
+            )
 
     def __str__(self) -> str:
         return (
