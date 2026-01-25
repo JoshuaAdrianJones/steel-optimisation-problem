@@ -10,12 +10,17 @@ Unreleased
   - `pack()` now accepts optional `kerf_width` parameter (default: 0)
   - `Bin` class tracks `kerf_loss`, `total_consumed`, and `waste` attributes
   - `Bin.can_fit()` method checks if item fits accounting for kerf
+- **Offcut tracking**: Track reusable leftover pieces for potential reuse
+  - `Bin.offcut` property: Alias for waste with clearer manufacturing terminology
+  - `get_packing_stats()` now includes `offcuts` list with each bin's offcut length
+  - `get_usable_offcuts(bins, min_length)`: Filter offcuts by minimum length threshold
 - **`get_packing_stats()` function**: Calculate statistics for packing solutions
-  - Returns efficiency percentage, total kerf loss, waste, and more
+  - Returns efficiency percentage, total kerf loss, waste, offcuts list, and more
 - **CLI module** (`cli.py`): Separated interactive CLI from library code
   - `steel-opt` command available after install
   - `python -m steel_optimisation_problem` also works
 - Comprehensive test suite for kerf loss scenarios (`tests/test_kerf_loss.py`)
+- Comprehensive test suite for offcut tracking (`tests/test_offcut_tracking.py`)
 
 ### Changed
 - `pack()` algorithm improved to use true First Fit (checks all bins, not just last)
