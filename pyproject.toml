@@ -19,6 +19,9 @@ classifiers = [
 
 dependencies = []
 
+[project.scripts]
+steel-opt = "steel_optimisation_problem.cli:main"
+
 [dependency-groups]
 dev = [
     "pytest>=8.0.0",
