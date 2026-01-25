@@ -71,51 +71,36 @@ class Bin:
 class StockInfo:
     """Manages stock information and validates available stock.
 
-    Can be initialized programmatically or interactively.
+    A pure data class with no side effects. All parameters are required.
 
     Args:
-        stock_length: Length of each stock piece in mm. If None, prompts user.
-        number_of_stock: Number of stock pieces available. If None, prompts user.
+        stock_length: Length of each stock piece in mm.
+        number_of_stock: Number of stock pieces available.
         kerf_width: Blade/saw kerf width in mm. Default 0.
 
     Example:
-        >>> # Programmatic usage
         >>> stock = StockInfo(stock_length=6000, number_of_stock=10, kerf_width=3)
-
-        >>> # Interactive usage (prompts user)
-        >>> stock = StockInfo()
+        >>> stock.total_length
+        60000
     """
 
     def __init__(
         self,
-        stock_length: Numeric | None = None,
-        number_of_stock: int | None = None,
+        stock_length: Numeric,
+        number_of_stock: int,
         kerf_width: Numeric = 0,
     ) -> None:
-        if stock_length is None:
-            self.stock_length = int(
-                input(
-                    "Please enter your stock length in mm:  (for example you might "
-                    "purchase 1m tubes in which case enter 1000): "
-                )
-            )
-        else:
-            self.stock_length = stock_length
+        if stock_length <= 0:
+            raise ValueError("stock_length must be positive")
+        if number_of_stock < 0:
+            raise ValueError("number_of_stock cannot be negative")
+        if kerf_width < 0:
+            raise ValueError("kerf_width cannot be negative")
 
-        if number_of_stock is None:
-            self.number_of_stock = int(input("How many do you have? "))
-        else:
-            self.number_of_stock = number_of_stock
-
+        self.stock_length = stock_length
+        self.number_of_stock = number_of_stock
         self.kerf_width = kerf_width
         self.total_length = self.stock_length * self.number_of_stock
-
-        # Only print when running interactively
-        if stock_length is None or number_of_stock is None:
-            print(f"Stock Length is: {self.stock_length}")
-            print(f"Total Stock Length is: {self.total_length}")
-            if kerf_width > 0:
-                print(f"Kerf Width: {self.kerf_width}mm")
 
     def check(self, cut_list: list[Numeric]) -> None:
         """Validate that total cuts don't exceed available stock."""

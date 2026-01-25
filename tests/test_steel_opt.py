@@ -1,7 +1,6 @@
 """Unit tests for steel optimization module (updated imports)."""
 
 import unittest
-from unittest.mock import patch
 
 from steel_optimisation_problem import Bin, StockInfo, pack
 
@@ -23,33 +22,31 @@ class TestBinInit(unittest.TestCase):
 
 
 class TestStockInfoInit(unittest.TestCase):
-    @patch("builtins.input", side_effect=["1000", "5"])
-    def test_valid_input(self, mock_input):
-        stock_info = StockInfo()
+    def test_valid_input(self):
+        stock_info = StockInfo(stock_length=1000, number_of_stock=5)
         self.assertEqual(stock_info.stock_length, 1000)
         self.assertEqual(stock_info.number_of_stock, 5)
         self.assertEqual(stock_info.total_length, 5000)
 
-    @patch("builtins.input", side_effect=["abc", "5"])
-    def test_invalid_input_stock_length(self, mock_input):
+    def test_valid_input_with_kerf(self):
+        stock_info = StockInfo(stock_length=6000, number_of_stock=10, kerf_width=3.5)
+        self.assertEqual(stock_info.kerf_width, 3.5)
+        self.assertEqual(stock_info.total_length, 60000)
+
+    def test_invalid_stock_length_zero(self):
         with self.assertRaises(ValueError):
-            StockInfo()
+            StockInfo(stock_length=0, number_of_stock=5)
 
-    @patch("builtins.input", side_effect=["1000", "abc"])
-    def test_invalid_input_number_of_stock(self, mock_input):
+    def test_invalid_stock_length_negative(self):
         with self.assertRaises(ValueError):
-            StockInfo()
+            StockInfo(stock_length=-100, number_of_stock=5)
 
-    @patch("builtins.input", side_effect=["0", "5"])
-    def test_edge_case_zero_stock_length(self, mock_input):
-        stock_info = StockInfo()
-        self.assertEqual(stock_info.stock_length, 0)
-        self.assertEqual(stock_info.number_of_stock, 5)
-        self.assertEqual(stock_info.total_length, 0)
+    def test_invalid_number_of_stock_negative(self):
+        with self.assertRaises(ValueError):
+            StockInfo(stock_length=1000, number_of_stock=-1)
 
-    @patch("builtins.input", side_effect=["1000", "0"])
-    def test_edge_case_zero_number_of_stock(self, mock_input):
-        stock_info = StockInfo()
+    def test_edge_case_zero_number_of_stock(self):
+        stock_info = StockInfo(stock_length=1000, number_of_stock=0)
         self.assertEqual(stock_info.stock_length, 1000)
         self.assertEqual(stock_info.number_of_stock, 0)
         self.assertEqual(stock_info.total_length, 0)

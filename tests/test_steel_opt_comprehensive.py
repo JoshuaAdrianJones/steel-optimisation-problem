@@ -52,10 +52,7 @@ def test_pack_handles_repeated_and_sorted_inputs():
 
 
 def test_stockinfo_check_raises_on_insufficient():
-    s = StockInfo.__new__(StockInfo)
-    s.stock_length = 100
-    s.number_of_stock = 1
-    s.total_length = 100
+    s = StockInfo(stock_length=100, number_of_stock=1)
 
     with pytest.raises(SystemExit):
         s.check([60, 50])
