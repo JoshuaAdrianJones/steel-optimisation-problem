@@ -19,6 +19,7 @@ class Bin:
         total_consumed: Total material consumed including kerf loss.
         kerf_loss: Total kerf loss in this bin.
         waste: Remaining unused capacity after accounting for kerf.
+        offcut: Alias for waste - the reusable leftover piece.
     """
 
     def __init__(self, capacity: Numeric, kerf_width: Numeric = 0) -> None:
@@ -54,6 +55,15 @@ class Bin:
         self.kerf_loss = self.kerf_width * max(0, len(self.items) - 1)
         self.total_consumed = self.currently_used + self.kerf_loss
         self.waste = self.capacity - self.total_consumed
+
+    @property
+    def offcut(self) -> Numeric:
+        """The remaining material after all cuts - potentially reusable.
+
+        This is an alias for `waste`, providing clearer terminology for
+        manufacturing contexts where offcuts may be saved for future use.
+        """
+        return self.waste
 
     def __str__(self) -> str:
         if self.kerf_width > 0:
